@@ -1,41 +1,48 @@
 #include <iostream>
 #include<algorithm>
+#include <cmath>
 
 using namespace std;
 
 int main() {
   cout << "RSA Algorithm!\n";
 //   Choose two random large prime numbers p and q app. 1024-bits length. 
-  int p = 193 , q = 197;
+     long long p = 193 , q = 197;
 // Compute the product: n = pq. 
-  int n = p*q;
+     long long n = p*q;
 // Compute φ(n) = (p − 1)(q − 1). (φ is Euler's totient function). 
-  int totient = (p-1)*(q-1);
-// Choose an integer e such that 1 < e < n, and e and φ(n) share no divisors other than 1 (i.e., e and φ(n) are relatively prime.). e does not have to be prime but it must be an odd number. 
-  int e = n-1;
-  for( ; e>=0 ; e-=2){
-    if(__gcd(e, totient) == 1){
+     long long totient = (p-1)*(q-1);
+  cout<<"totient "<<totient<<endl;
+// Choose an    long longeger e such that 1 < e < n, and e and φ(n) share no divisors other than 1 (i.e., e and φ(n) are relatively prime.). e does not have to be prime but it must be an odd number. 
+  long long e;
+  
+  
+
+  for(long long i = 3;i<n ; i+=2){
+    cout<<"gcd = "<<__gcd(i, totient)<<endl;
+    if(__gcd(i, totient) == 1){
       //they are relatively prime
+      e = i;
       break;
     }
   }
-
+  cout<<"e "<<e<<endl;
 // Use the Euclidian algorithm to compute the decryption key d such that 
 
 // ed =  1 mod φ(n)  
-  int k = 1;
+     long long k = 1;
 // d =  e-1 mod φ(n)  
-  int d = (1 + (k*totient))/e; 
+     long long d = (1 + (k*totient))/e; 
 // d and n are relatively prime.  
-
+cout<<"k , d "<<k<<", "<<d<<endl;
 // (e,n)à public keys (d,n)à private keys 
-  int m = 10;//message
-  cout<<"message "<<m<<endl;
+     long long m = 10;//message
+  cout<<"message = "<<m<<endl;
 // Encryption: c = me mod n where m is the message and c is the corresponding cipher text. 
-  int c = (m*e)%n;
-  cout<<"ciphertext "<<c<<endl;
+     long long c = (long long)(pow((double)m,(double)e)) %n;
+  cout<<"ciphertext = "<<c<<endl;
 // Decryption: m = cd mod n where c is the ciphertext and m is the corresponding message. 
-  m = (c*d)%n;
+  m = (long long)(pow((double)c,(double)d))%n;
   cout<<"after decryption, "<<m<<endl;
 
   return 0;
