@@ -19,7 +19,7 @@ string strength(string pswd){
 
    //all set to false in the begining
 
-   for(char c : pswd){
+   for(char c : pswd)
 
      if(isdigit(c))
 
@@ -38,7 +38,7 @@ string strength(string pswd){
        hasSpecial = 1;
      
 
-   }
+   
 
   if(pswd.length()>=8)
 
